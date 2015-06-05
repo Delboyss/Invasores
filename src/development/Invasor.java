@@ -17,7 +17,7 @@ public class Invasor {
     public Invasor(Dimension a) {
 
         area = a;
-        icon = new ImageIcon(getClass().getResource("development/img/Invasor.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("Img/Invasor.png")).getImage();
         iw = icon.getWidth(null);
         ih = icon.getHeight(null);
         x = (int) (iw / 2 + Math.random() * (a.width - iw));
