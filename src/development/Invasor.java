@@ -12,7 +12,9 @@ public class Invasor {
     private int dx, dy;
     private int iw, ih;
     private Image icon;
+    private int raio;
     private Dimension area;
+    private Boolean destruido;
 
     public Invasor(Dimension a) {
 
@@ -30,6 +32,41 @@ public class Invasor {
         }
 
     }
+
+    public Boolean getDestruido() {
+        return destruido;
+    }
+
+    public void setDestruido(Boolean destruido) {
+        this.destruido = destruido;
+    }
+
+    
+    public int getRaio() {
+        return raio;
+    }
+
+    public void setRaio(int raio) {
+        this.raio = raio;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    
 
     public void move() {
         x += dx;
