@@ -59,8 +59,11 @@ public class Atirador {
     
     
     public void atirar(){
-                
-        missils.add(new Missil(x, y));
+          
+        // lado direito
+        missils.add(new Missil(x+15 , y));
+        // lado esquerdo
+        missils.add(new Missil(x-20 , y));
         
     }
     

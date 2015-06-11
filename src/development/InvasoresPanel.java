@@ -156,7 +156,7 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
         } else if (keyCode == KeyEvent.VK_DOWN) {
             dir = Direcao.DOWN;
         }else if (keyCode == KeyEvent.VK_F) {
-              atirador.atirar();
+                  atirador.atirar();
                  atiradorAtirar(atirador);
         }
     }

@@ -14,6 +14,8 @@ public class Missil {
     private int width, height;
     private double direcaoX, direcaoY;
     private int raio = 5;
+    // lados 1 = direito e 0 igual a esquerdo
+    private int lado;
 
     private final int BOARD_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final int BOARD_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -29,8 +31,9 @@ public class Missil {
         height = image.getHeight(null);
         this.direcaoX = direcaoX;
         this.direcaoY = direcaoY;
-        this.x = y;
-        this.y = x;
+        this.x = x;
+        this.y = y;
+
     }
 
     public double getDirecaoX() {
@@ -78,11 +81,11 @@ public class Missil {
     }
     public void move() {
 
-
-            //x = x;
-            // tiro vai para cima
-            y--;
-
+   
+                x = x;
+                // tiro vai para cima
+                y--;
+           
             
             if (x > BOARD_WIDTH)
                 visible = false;
