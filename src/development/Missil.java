@@ -13,7 +13,7 @@ public class Missil {
     boolean visible;
     private int width, height;
     private double direcaoX, direcaoY;
-    private int raio = 5;
+    private int raio = 15;
     // lados 1 = direito e 0 igual a esquerdo
     private int lado;
 

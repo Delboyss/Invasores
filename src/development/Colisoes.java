@@ -65,6 +65,7 @@ public class Colisoes implements Runnable {
                         inv.setDestruido(true);
                        
                         ms.remove(m);
+                                                
                         houveColisao = true;
 
                         try {
