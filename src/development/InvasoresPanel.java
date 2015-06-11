@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -20,15 +21,18 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
     private Atirador atirador;
     private Direcao dir;
     private Image img;
-    
+    Image background; 
+    private ArrayList ms;
     
     public InvasoresPanel(String img) {
         this(new ImageIcon(img).getImage());
     }
     public InvasoresPanel(Image img) {     
         
+        background = Toolkit.getDefaultToolkit().createImage(getClass().getResource("/development/img/space-bg.jpg"));
+        this.ms = new ArrayList();
         this.img = img;
-       // setBackground(Color.BLACK);
+        setBackground(Color.BLACK);
         setPreferredSize(new Dimension(largura, altura));
         setFocusable(true);
         requestFocus();
@@ -55,6 +59,7 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
     public void run() {
         while (true) {
             gameUpdate();
+ 
             repaint();
             try {
                 Thread.sleep(10);
@@ -69,7 +74,30 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
             for (Invasor i : invasores) {
                 i.move();
             }
+    
+        
             atirador.move(dir);
+            
+        }
+    }
+    
+    
+    
+    public void atiradorAtirar(Atirador a) {
+        
+        if (!isPaused) {
+            
+            ArrayList ms = a.getMissil();
+            // Executa quantos mísseis tiver
+            for (int i = 0; i < ms.size(); i++) {
+                Missil m = (Missil) ms.get(i);
+
+                    m.move();
+                        
+                if (((Missil) ms.get(i)).visible == false)
+                    ms.remove(i);
+            }
+
         }
     }
 
@@ -77,6 +105,8 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(this.img, 0, 0, null);
+        
+        g.drawImage(background, 0, 0, null);
         g.setColor(Color.BLACK);
         
         
@@ -84,7 +114,29 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
         for (Invasor i : invasores) {
             i.draw(g);
         }
-        atirador.draw(g);
+            
+  
+            ms = atirador.getMissil();
+       
+            
+           // Desenha todos os mísseis que são adicionados na tela
+          for (int i = 0; i < ms.size(); i++) {
+                    Missil m = (Missil) ms.get(i);
+                    m.move();
+                    g.drawImage(m.getImage(), (int)m.getX(), (int)m.getY(), this);
+         
+          
+          }
+
+         // Desemja Player
+         atirador.draw(g);
+         
+         
+         
+       
+         
+            
+         
     }
 
     public void keyPressed(KeyEvent e) {
@@ -103,6 +155,9 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
             dir = Direcao.UP;
         } else if (keyCode == KeyEvent.VK_DOWN) {
             dir = Direcao.DOWN;
+        }else if (keyCode == KeyEvent.VK_F) {
+              atirador.atirar();
+                 atiradorAtirar(atirador);
         }
     }
 

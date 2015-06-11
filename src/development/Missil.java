@@ -17,11 +17,11 @@ public class Missil {
 
     private final int BOARD_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final int BOARD_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    private final int MISSILE_SPEED = 50;
+    private final int MISSILE_SPEED = 5;
 
-    public Missil(double x, double y, double direcaoX, double direcaoY) {
+    public Missil(double x, double y) {
         ImageIcon ii =
-                new ImageIcon(this.getClass().getResource("Imagens/missil.png"));
+                new ImageIcon(this.getClass().getResource("/development/img/missil.png"));
 
         image = ii.getImage();
         visible = true;
@@ -29,8 +29,8 @@ public class Missil {
         height = image.getHeight(null);
         this.direcaoX = direcaoX;
         this.direcaoY = direcaoY;
-        this.x = x;
-        this.y = y;
+        this.x = y;
+        this.y = x;
     }
 
     public double getDirecaoX() {
@@ -79,9 +79,11 @@ public class Missil {
     public void move() {
 
 
-            x = x + direcaoX * MISSILE_SPEED;
-            y = y - direcaoY * MISSILE_SPEED;
+            //x = x;
+            // tiro vai para cima
+            y--;
 
+            
             if (x > BOARD_WIDTH)
                 visible = false;
             if (y > BOARD_HEIGHT)
@@ -91,4 +93,6 @@ public class Missil {
 
 
     }
+    
+
 }

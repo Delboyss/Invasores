@@ -2,6 +2,7 @@ package development;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Daniel on 16/05/2015.
@@ -12,6 +13,7 @@ public class Atirador {
     private int iw, ih;
     private Image icon;
     private Dimension area;
+    private ArrayList missils;
 
     public Atirador(Dimension a) {
         area = a;
@@ -21,6 +23,9 @@ public class Atirador {
         ih = icon.getHeight(null);
         x = (int) (iw / 2 + (a.width - iw) / 2);
         y = (int) (a.height - 100 + ih / 2);
+                
+        missils = new ArrayList();        
+                
     }
 
     public void move(Direcao dir) {
@@ -47,9 +52,25 @@ public class Atirador {
                 if (y > area.height - ih / 2) y = area.height - ih / 2;
                 break;
             }
+            
+        
         }
     }
-
+    
+    
+    public void atirar(){
+                
+        missils.add(new Missil(x, y));
+        
+    }
+    
+    
+     public ArrayList getMissil() {
+        return missils;
+    }
+    
+    
+  
     public void draw(Graphics g) {
         g.drawImage(icon, x - iw / 2, y - ih / 2, null);
     }
