@@ -62,7 +62,7 @@ public class Atirador {
           
         // lado direito
         missils.add(new Missil(x+15 , y));
-        Sound.BULLET_SHOT.play();
+        // Sound.BULLET_SHOT.play();
         // lado esquerdo
         missils.add(new Missil(x-20 , y));
         
