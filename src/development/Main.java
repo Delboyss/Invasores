@@ -7,6 +7,8 @@ import java.io.IOException;
  * Created by Daniel on 16/05/2015.
  */
 public class Main {
+    
+     
 
 
     public static void main(String args[]) throws IOException {
@@ -14,8 +16,10 @@ public class Main {
     }
 
     public static void criarTela() throws IOException {
+        
+
         JFrame frame = new JFrame();
-        InvasoresPanel sip = new InvasoresPanel();
+        InvasoresPanel sip = new InvasoresPanel(new ImageIcon("Img/background.png").getImage());
         frame.getContentPane().add(sip);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

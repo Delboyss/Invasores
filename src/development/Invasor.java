@@ -23,6 +23,7 @@ public class Invasor {
         x = (int) (iw / 2 + Math.random() * (a.width - iw));
         y = (int) (ih / 2 + Math.random() * (a.height - 100 - ih));
 
+        
         while (dx == 0 || dy == 0) {
             dx = 3 - (int) (Math.random() * 6);
             dy = 2 - (int) (Math.random() * 4);

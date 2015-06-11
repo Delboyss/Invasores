@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  * Created by Daniel on 16/05/2015.
@@ -16,9 +19,16 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
     private Invasor[] invasores;
     private Atirador atirador;
     private Direcao dir;
-
-    public InvasoresPanel() {
-        setBackground(Color.WHITE);
+    private Image img;
+    
+    
+    public InvasoresPanel(String img) {
+        this(new ImageIcon(img).getImage());
+    }
+    public InvasoresPanel(Image img) {     
+        
+        this.img = img;
+       // setBackground(Color.BLACK);
         setPreferredSize(new Dimension(largura, altura));
         setFocusable(true);
         requestFocus();
@@ -66,7 +76,10 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(this.img, 0, 0, null);
         g.setColor(Color.BLACK);
+        
+        
         g.drawRect(0, 0, getWidth(), getHeight() - 100);
         for (Invasor i : invasores) {
             i.draw(g);
