@@ -7,6 +7,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.imageio.ImageIO;
 
 /**
@@ -17,12 +20,14 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
     private static final int altura = 600;
     private Thread animator;
     private boolean isPaused = false;
-    private Invasor[] invasores;
+    private HashSet<Invasor> invasores;
     private Atirador atirador;
     private Direcao dir;
     private Image img;
     Image background; 
+    private int invasoresTotal = 10;
     private ArrayList ms;
+     private final ExecutorService pool = Executors.newFixedThreadPool(3);
     
     public InvasoresPanel(String img) {
         this(new ImageIcon(img).getImage());
@@ -37,9 +42,12 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
         setFocusable(true);
         requestFocus();
         addKeyListener(this);
-        invasores = new Invasor[20];
-        for (int i = 0; i < invasores.length; i++) {
-            invasores[i] = new Invasor(this.getPreferredSize());
+        invasores = new HashSet<Invasor>();
+        
+        for (int i = 0; i < invasoresTotal; i++) {
+        
+            invasores.add(new Invasor(this.getPreferredSize()));
+            
             atirador = new Atirador(this.getPreferredSize());
         }
     }
@@ -58,8 +66,9 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
 
     public void run() {
         while (true) {
+            
             gameUpdate();
- 
+            checkColisoes();
             repaint();
             try {
                 Thread.sleep(10);
@@ -67,6 +76,23 @@ public class InvasoresPanel extends JPanel implements Runnable, KeyListener {
                 e.printStackTrace();
             }
         }
+    }
+    
+    
+    private void checkColisoes(){
+        
+         try{
+            pool.execute(new Colisoes(invasores, atirador));
+
+            repaint();
+
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+            pool.shutdown();
+        }
+         
     }
 
     private void gameUpdate() {
